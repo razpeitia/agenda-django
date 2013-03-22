@@ -1,0 +1,7 @@
+<h1> Agregar </h1>
+<form action="" method='post'>
+	{% csrf_token %}
+	{{ cf.as_p }}
+	{{ df.as_p }}
+	<input type = "submit" value = "Guardar">
+</form>
