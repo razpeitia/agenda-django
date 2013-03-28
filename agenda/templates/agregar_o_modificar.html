@@ -1,0 +1,20 @@
+<h1>{% if contactoform.instance.pk %}Editar{% else %}Agregar{% endif %}</h1>
+<p><a href="{% url home%}">Inicio</a></p>
+<form method="post" action=".">
+	{% csrf_token %}
+	{{ contactoform }}
+    {{ formset.management_form }}
+    
+    {% for form in formset %}
+    	{{ form.id }}
+        {{ form.non_field_errors }}
+        {{ form.errors }}
+    	<ul>
+    	{% for field in form.visible_fields %}
+            <li>{{ field.label_tag }}: {{ field }}</li>
+        {% endfor %}
+    	</ul>
+    {% endfor %}
+
+    <p><input type="submit" value="Guardar" /></p>
+</form>

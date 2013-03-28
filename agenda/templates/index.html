@@ -1,7 +1,27 @@
-<h1> Agregar </h1>
-<form action="" method='post'>
-	{% csrf_token %}
-	{{ cf.as_p }}
-	{{ df.as_p }}
-	<input type = "submit" value = "Guardar">
-</form>
+{% extends 'base.html' %}
+
+{% block content %}
+	<p><a href="{% url add %}">Agregar</a></p>
+	{% if contact_list %}
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Apellido</th>
+				<th>Editar</th>
+				<th>Borrar</th>
+			</tr>
+		{% for contact in contact_list %}
+			<tr>
+				<td>{{ contact.id }}</td>
+				<td>{{ contact.nombre }}</td>
+				<td>{{ contact.apellido }}</td>
+				<td><a href="{% url update contact.id %}">Editar</a></td>
+				<td><form action="{% url delete contact.id %}" method="POST">{% csrf_token %}<input type="submit" value="Borrar" /></form></td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% else %}
+		<h2>No hay contactos</h2>
+	{% endif %}
+{% endblock %}
